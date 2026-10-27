@@ -36,6 +36,5 @@ professor = Professor("Adam","Jones","Discrete Mathematics","Phd")
 
 people = [student,professor]
 
-with open("date.txt", 'a') as f:
-
-    _=f.write(f"{student.firstname};{student.lastname};{student.fieldofstudy};{student.year}\n{professor.firstname};{professor.lastname}")
+            
+            
