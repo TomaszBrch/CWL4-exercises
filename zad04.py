@@ -36,5 +36,14 @@ professor = Professor("Adam","Jones","Discrete Mathematics","Phd")
 
 people = [student,professor]
 
-            
-            
+
+#pola rozdzielono średnikiem, po jednym obiekcie w wierszu
+
+with open("dane.txt", "w") as f:
+    for person in people:
+        line: str = ";".join(str(val) for val in person.__dict__.values())  # pyright: ignore[reportAny]
+        _=f.write(line + "\n")
+
+
+    
+        
