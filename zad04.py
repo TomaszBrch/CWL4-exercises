@@ -31,10 +31,10 @@ class Professor(Person):
         return "Good morning"
 
 
-student = Student("Jacob","Smith","Computer Science",3)
-professor = Professor("Adam","Jones","Discrete Mathematics","Phd")
+s1 = Student("Jacob","Smith","Computer Science",3)
+p1 = Professor("Adam","Jones","Discrete Mathematics","Phd")
 
-people = [student,professor]
+people = [s1,p1]
 
 
 #pola rozdzielono średnikiem, po jednym obiekcie w wierszu
@@ -52,17 +52,41 @@ classes = {
     "Professor": Professor
 }
 
+file = None
+try:
+    with open(file="dane.txt", mode="r") as f:
 
-with open(file="dane.txt", mode="r") as f:
-    objects: str = f.read()
-
-    _=objects.split(";")
-
-
-
-
+        file = f.read().splitlines()
+except FileNotFoundError:
+    print("Error: file not found")
 
 
 
-   
-        
+if file is not None:
+    for line in file:
+
+        line_number: int = file.index(line) + 1
+
+        line = line.strip()
+
+        data = line.split(";")
+
+        class_name = data[0]
+
+        attributes = data[1:]
+
+        if len(attributes) != 4:
+            print(f"Error: malformed line {line_number}")
+            continue
+
+  
+
+        if class_name in classes:
+
+            _class = classes[class_name]
+
+            new_object = _class(*attributes)  # pyright: ignore[reportArgumentType]
+
+            recreated_people.append(new_object)  # pyright: ignore[reportUnknownMemberType]
+        else:
+            print(f"Unknown class type {class_name}")
