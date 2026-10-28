@@ -41,9 +41,28 @@ people = [student,professor]
 
 with open("dane.txt", "w") as f:
     for person in people:
-        line: str = ";".join(str(val) for val in person.__dict__.values())  # pyright: ignore[reportAny]
+        line: str = str(type(person).__name__) + ";" + ";".join(str(val) for val in person.__dict__.values())  # pyright: ignore[reportAny]
         _=f.write(line + "\n")
 
+recreated_people = []
 
-    
+classes = {
+
+    "Student": Student,
+    "Professor": Professor
+}
+
+
+with open(file="dane.txt", mode="r") as f:
+    objects: str = f.read()
+
+    _=objects.split(";")
+
+
+
+
+
+
+
+   
         
