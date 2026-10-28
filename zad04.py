@@ -101,4 +101,3 @@ if file is not None:
 
 for person in recreated_people:
     print(person.__str__())
-
