@@ -97,6 +97,7 @@ if file is not None:
             new_object = _class(*attributes)  # pyright: ignore[reportArgumentType]
 
             recreated_people.append(new_object)
+        else:
             print(f"Unknown class type {class_name}")
 
 for person in recreated_people:
