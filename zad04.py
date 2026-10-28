@@ -21,11 +21,17 @@ class Student(Person):
 
     def greeting(self) -> str:
         return "Hi!"
+    @override
+    def __str__(self) -> str:
+        return f"{self.firstname}, {self.lastname}, {self.fieldofstudy}, {self.year}"
 class Professor(Person):
     def __init__(self,fname:str,lname:str,subject:str,title:str) -> None:
         super().__init__(fname,lname)
         self.subject: str = subject
         self.title: str = title
+    @override
+    def __str__(self) -> str:
+        return f"{self.firstname}, {self.lastname}, {self.subject}, {self.title}"
 
     def greeting(self) -> str:
         return "Good morning"
@@ -37,7 +43,7 @@ s2 = Student("Cyndi", "Richards", "Physics", 2)
 p2 = Professor("Peter", "Mayers", "Calculus", "Phd")
 p3 = Professor("Barbra", "Hawkins", "Programming", "Ms")
 s3 = Student("Alice", "Lovelace", "Mathematics", 3)
-people = [s1,p1]
+people = [s1, s2, s3, p1, p2, p3]
 
 
 #pola rozdzielono średnikiem, po jednym obiekcie w wierszu
@@ -47,7 +53,7 @@ with open("dane.txt", "w") as f:
         line: str = str(type(person).__name__) + ";" + ";".join(str(val) for val in person.__dict__.values())  # pyright: ignore[reportAny]
         _=f.write(line + "\n")
 
-recreated_people = []
+recreated_people:list[Professor|Student] = []
 
 classes = {
 
@@ -90,6 +96,9 @@ if file is not None:
 
             new_object = _class(*attributes)  # pyright: ignore[reportArgumentType]
 
-            recreated_people.append(new_object)  # pyright: ignore[reportUnknownMemberType]
-        else:
+            recreated_people.append(new_object)
             print(f"Unknown class type {class_name}")
+
+for person in recreated_people:
+    print(person.__str__())
+
