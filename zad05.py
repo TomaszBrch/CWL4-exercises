@@ -1,4 +1,3 @@
-
 import json
 from typing import override
 
@@ -44,6 +43,12 @@ class Professor(Person):
     def greeting(self) -> str:
         return "Good morning"
 
+classes = {
+
+    "Student": Student,
+    "Professor": Professor
+}
+
 
 s1 = Student("Jacob","Smith","Computer Science",3)
 p1 = Professor("Adam","Jones","Discrete Mathematics","Phd")
@@ -55,8 +60,38 @@ people = [s1, s2, s3, p1, p2, p3]
 
 people_dict = [person.to_dict() for person in people]
 
+recreated_people:list[Student|Professor] = []
+
 
 with open("dane.json", "w") as f:
     json.dump(people_dict,f,indent=4)
+
+with open("dane.json", "r") as f:
+    data:list[dict[str, str | int]] = json.load(f)  # pyright: ignore[reportAny]
+
+for person in data:
+    
+    _type:str = str(person["type"])
+
+    arguments = list(person.values())
+
+    _=arguments.remove(_type)
+
+    _class = classes[_type]
+
+    new_object = _class(*arguments)  # pyright: ignore[reportArgumentType]
+
+    recreated_people.append(new_object)
+
+for person in recreated_people:
+    print(person.__str__())
+
+
+    
+
+    
+
+
+
 
 
