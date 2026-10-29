@@ -58,7 +58,7 @@ p3 = Professor("Barbra", "Hawkins", "Programming", "Ms")
 s3 = Student("Alice", "Lovelace", "Mathematics", 3)
 people = [s1, s2, s3, p1, p2, p3]
 
-people_dict = [person.to_dict() for person in people]
+people_dict: list[dict[str, str|int]] = [person.to_dict() for person in people]
 
 recreated_people:list[Student|Professor] = []
 
