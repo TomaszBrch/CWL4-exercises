@@ -10,6 +10,12 @@ class Person:
 
     def printname(self) -> None:
         print(self.firstname,self.lastname)
+    def to_dict(self) -> dict[str, str|int]:
+        
+        ob_dict = self.__dict__
+        ob_dict["type"] = type(self).__name__
+        
+        return ob_dict
 class Student(Person):
     def __init__(self,fname:str,lname:str, filedofstudy:str, year:int) -> None:
         super().__init__(fname,lname)
