@@ -1,5 +1,5 @@
 from .model import Professor, Student
-from .operations import write_to_txt
+from .operations import write_to_json, write_to_txt
 
 if __name__ == "__main__":
     s1 = Student("Jacob","Smith","Computer Science",3)
@@ -12,3 +12,6 @@ if __name__ == "__main__":
 
     write_to_txt(people)
     
+    people_dict: list[dict[str, str|int]] = [person.to_dict() for person in people]
+
+    write_to_json(people_dict)
