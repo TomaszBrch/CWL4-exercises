@@ -11,7 +11,7 @@ class Person:
 
     def printname(self) -> None:
         print(self.firstname,self.lastname)
-    def to_dict(self):
+    def to_dict(self) -> dict[str, str|int]:
         
         ob_dict = self.__dict__
         ob_dict["type"] = type(self).__name__
